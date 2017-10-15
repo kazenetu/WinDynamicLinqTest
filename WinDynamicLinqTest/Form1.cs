@@ -39,5 +39,23 @@ namespace WinDynamicLinqTest
 
             MessageBox.Show(result.ToString());
         }
+
+        /// <summary>
+        /// ViewModel切替
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChangeVM_Click(object sender, EventArgs e)
+        {
+            if (this.ucSettingControl1.Target is ViewModels.TestVM)
+            {
+                this.ucSettingControl1.TargetVMName =  typeof(ViewModels.TestVMEx).FullName;
+            }
+            else
+            {
+                this.ucSettingControl1.TargetVMName = typeof(ViewModels.TestVM).FullName;
+
+            }
+        }
     }
 }
