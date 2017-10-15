@@ -28,12 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.ucSettingControl1 = new WinDynamicLinqTest.UserControls.UcSettingControl();
+            this.SuspendLayout();
+            // 
+            // ucSettingControl1
+            // 
+            this.ucSettingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSettingControl1.Location = new System.Drawing.Point(0, 0);
+            this.ucSettingControl1.Name = "ucSettingControl1";
+            this.ucSettingControl1.Size = new System.Drawing.Size(331, 435);
+            this.ucSettingControl1.TabIndex = 0;
+            this.ucSettingControl1.TargetVMName = "WinDynamicLinqTest.ViewModels.TestVM";
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(331, 435);
+            this.Controls.Add(this.ucSettingControl1);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private UserControls.UcSettingControl ucSettingControl1;
     }
 }
 
