@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Attributes\DisplayOrderAttribute.cs" />
     <Compile Include="Attributes\InputControlAttribute.cs" />
+    <Compile Include="DataSources\ComboBoxItem.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
