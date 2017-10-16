@@ -57,5 +57,26 @@ namespace WinDynamicLinqTest
 
             }
         }
+
+        /// <summary>
+        /// 項目(Value)の表示/非表示の制御
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChangeDisplay_Click(object sender, EventArgs e)
+        {
+            var targetColumnName = "Value";
+
+            switch (this.ucSettingControl1.GetPropertyState(targetColumnName))
+            {
+                case UserControls.UcSettingControl.PropertyState.Show:
+                    this.ucSettingControl1.HideProperty(targetColumnName);
+                    break;
+
+                case UserControls.UcSettingControl.PropertyState.Hide:
+                    this.ucSettingControl1.ShowProperty(targetColumnName);
+                    break;
+            }
+        }
     }
 }
