@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.ShowData = new System.Windows.Forms.Button();
-            this.ChangeVM = new System.Windows.Forms.Button();
             this.ucSettingControl1 = new WinDynamicLinqTest.UserControls.UcSettingControl();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.ChangeDisplay = new System.Windows.Forms.Button();
+            this.ChangeVM = new System.Windows.Forms.Button();
+            this.ShowData = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +54,15 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(298, 496);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
+            // ucSettingControl1
+            // 
+            this.ucSettingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSettingControl1.Location = new System.Drawing.Point(3, 53);
+            this.ucSettingControl1.Name = "ucSettingControl1";
+            this.ucSettingControl1.Size = new System.Drawing.Size(292, 440);
+            this.ucSettingControl1.TabIndex = 2;
+            this.ucSettingControl1.TargetVMName = "WinDynamicLinqTest.ViewModels.TestVM";
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.ChangeDisplay);
@@ -64,14 +73,15 @@
             this.panel1.Size = new System.Drawing.Size(292, 44);
             this.panel1.TabIndex = 3;
             // 
-            // ShowData
+            // ChangeDisplay
             // 
-            this.ShowData.Location = new System.Drawing.Point(3, 3);
-            this.ShowData.Name = "ShowData";
-            this.ShowData.Size = new System.Drawing.Size(75, 38);
-            this.ShowData.TabIndex = 2;
-            this.ShowData.Text = "データ表示";
-            this.ShowData.UseVisualStyleBackColor = true;
+            this.ChangeDisplay.Location = new System.Drawing.Point(165, 3);
+            this.ChangeDisplay.Name = "ChangeDisplay";
+            this.ChangeDisplay.Size = new System.Drawing.Size(83, 38);
+            this.ChangeDisplay.TabIndex = 4;
+            this.ChangeDisplay.Text = "項目\r\n表示/非表示";
+            this.ChangeDisplay.UseVisualStyleBackColor = true;
+            this.ChangeDisplay.Click += new System.EventHandler(this.ChangeDisplay_Click);
             // 
             // ChangeVM
             // 
@@ -83,24 +93,15 @@
             this.ChangeVM.UseVisualStyleBackColor = true;
             this.ChangeVM.Click += new System.EventHandler(this.ChangeVM_Click);
             // 
-            // ucSettingControl1
+            // ShowData
             // 
-            this.ucSettingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucSettingControl1.Location = new System.Drawing.Point(3, 53);
-            this.ucSettingControl1.Name = "ucSettingControl1";
-            this.ucSettingControl1.Size = new System.Drawing.Size(292, 440);
-            this.ucSettingControl1.TabIndex = 2;
-            this.ucSettingControl1.TargetVMName = "WinDynamicLinqTest.ViewModels.TestVM";
-            // 
-            // ChangeDisplay
-            // 
-            this.ChangeDisplay.Location = new System.Drawing.Point(165, 3);
-            this.ChangeDisplay.Name = "ChangeDisplay";
-            this.ChangeDisplay.Size = new System.Drawing.Size(83, 38);
-            this.ChangeDisplay.TabIndex = 4;
-            this.ChangeDisplay.Text = "項目\r\n表示/非表示";
-            this.ChangeDisplay.UseVisualStyleBackColor = true;
-            this.ChangeDisplay.Click += new System.EventHandler(this.ChangeDisplay_Click);
+            this.ShowData.Location = new System.Drawing.Point(3, 3);
+            this.ShowData.Name = "ShowData";
+            this.ShowData.Size = new System.Drawing.Size(75, 38);
+            this.ShowData.TabIndex = 2;
+            this.ShowData.Text = "データ表示";
+            this.ShowData.UseVisualStyleBackColor = true;
+            this.ShowData.Click += new System.EventHandler(this.ShowData_Click);
             // 
             // Form1
             // 
