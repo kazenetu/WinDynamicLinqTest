@@ -54,7 +54,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\ISettingControlDataSource.cs" />
+    <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\TestEx.cs" />
     <Compile Include="Program.cs" />
