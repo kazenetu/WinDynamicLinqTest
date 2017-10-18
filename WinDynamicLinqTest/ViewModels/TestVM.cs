@@ -6,7 +6,7 @@ namespace WinDynamicLinqTest.ViewModels
     /// <summary>
     /// コントロール表示、バインドテスト用クラス
     /// </summary>
-    public class TestVM
+    public class TestVM : Interfaces.IViewModel
     {
         private Test model = new Test();
 
@@ -15,7 +15,11 @@ namespace WinDynamicLinqTest.ViewModels
             this.model = model;
         }
 
-        public Test GetModel()
+        /// <summary>
+        /// Modelインスタンスの取得
+        /// </summary>
+        /// <returns>IModelインスタンス</returns>
+        public Interfaces.IModel GetModel()
         {
             return this.model;
         }

@@ -8,7 +8,7 @@ namespace WinDynamicLinqTest.ViewModels
     /// <summary>
     /// コントロール表示、バインドテスト用クラス(拡張版)
     /// </summary>
-    public class TestVMEx
+    public class TestVMEx : Interfaces.IViewModel
     {
         private TestEx model = new TestEx();
 
@@ -17,7 +17,11 @@ namespace WinDynamicLinqTest.ViewModels
             this.model = model;
         }
 
-        public TestEx GetModel()
+        /// <summary>
+        /// Modelインスタンスの取得
+        /// </summary>
+        /// <returns>IModelインスタンス</returns>
+        public Interfaces.IModel GetModel()
         {
             return this.model;
         }
