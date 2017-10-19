@@ -26,15 +26,19 @@ namespace WinDynamicLinqTest
         {
             var result = new StringBuilder();
 
-            var targetType = this.ucSettingControl1.Target.GetType();
+            // VMクラス名の格納
+            var targetVM = this.ucSettingControl1.Target as Interfaces.IViewModel;
+            result.AppendLine(string.Format("VMClass:{0}", targetVM.GetType().FullName));
 
-            // クラス名の格納
-            result.AppendLine(string.Format("class:{0}",targetType.FullName ));
+            // Modelクラス名の格納
+            var targetModel = targetVM.GetModel();
+            result.AppendLine(string.Format("ModelClass:{0}", targetModel.GetType().FullName));
+
 
             // プロパティの格納
-            foreach (var propaty in targetType.GetProperties())
+            foreach (var propaty in targetModel.GetType().GetProperties())
             {
-                result.AppendLine(string.Format("{0}:{1}", propaty.Name, propaty.GetValue(this.ucSettingControl1.Target)));
+                result.AppendLine(string.Format("{0}:{1}", propaty.Name, propaty.GetValue(targetModel)));
             }
 
             MessageBox.Show(result.ToString());
