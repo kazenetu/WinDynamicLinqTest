@@ -375,7 +375,7 @@ namespace WinDynamicLinqTest.UserControls
             {
                 input.ValueMember = datasource.GetValueMember();
                 input.DisplayMember = datasource.GetDisplayMember();
-                input.Items.AddRange(datasource.GetItem().ToArray());
+                input.DataSource = datasource.GetItem();
             }
 
             var inputData = pi.GetValue(this.target, null);
