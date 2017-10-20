@@ -28,6 +28,7 @@ namespace WinDynamicLinqTest.DataSources
         {
             var result = new List<Item>();
 
+            result.Add(new Item() { Text = String.Empty , Value = 0 });
             result.Add(new Item() { Text = "選択A", Value = 1 });
             result.Add(new Item() { Text = "選択B", Value = 10 });
             result.Add(new Item() { Text = "選択C", Value = 20 });
