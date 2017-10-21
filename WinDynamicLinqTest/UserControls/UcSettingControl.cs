@@ -184,7 +184,7 @@ namespace WinDynamicLinqTest.UserControls
 
             //クラス名を元にTypeとそのインスタンスを取得
             var targetType = Type.GetType(this.TargetVMName);
-            this.target = Activator.CreateInstance(targetType);
+            this.target = Activator.CreateInstance(targetType) as IViewModel;
 
             //ソートするため、一時的に属性を格納するリスト作成
             var createSourceData = new List<CreateSourceData>();
