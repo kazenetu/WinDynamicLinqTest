@@ -21,7 +21,7 @@ namespace WinDynamicLinqTest
             var result = new StringBuilder();
 
             // VMクラス名の格納
-            var targetVM = this.ucSettingControl1.Target as Interfaces.IViewModel;
+            var targetVM = this.ucSettingControl1.Target;
             result.AppendLine(string.Format("VMClass:{0}", targetVM.GetType().FullName));
 
             // Modelクラス名の格納
