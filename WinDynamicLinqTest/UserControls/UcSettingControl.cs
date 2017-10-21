@@ -67,13 +67,13 @@ namespace WinDynamicLinqTest.UserControls
         /// <summary>
         /// TargetVMNameのインスタンス
         /// </summary>
-        private object target = null;
+        private IViewModel target = null;
 
         /// <summary>
         /// TargetVMNameのインスタンス
         /// </summary>
         [Browsable(false)]
-        public object Target
+        public IViewModel Target
         {
             get
             {
