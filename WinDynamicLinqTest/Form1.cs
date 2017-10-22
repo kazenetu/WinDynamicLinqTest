@@ -6,8 +6,8 @@ namespace WinDynamicLinqTest
 {
     public partial class Form1 : Form
     {
-        private Interfaces.IModel testModel = null;
-        private Interfaces.IModel testExModel = null;
+        private Interfaces.IViewModel testVM = null;
+        private Interfaces.IViewModel testExVM= null;
 
         public Form1()
         {
@@ -50,20 +50,20 @@ namespace WinDynamicLinqTest
         {
             if (this.ucSettingControl1.Target is ViewModels.TestVM)
             {
-                this.testModel = this.ucSettingControl1.Target.GetModel();
+                this.testVM = this.ucSettingControl1.Target;
                 this.ucSettingControl1.TargetVMName =  typeof(ViewModels.TestVMEx).FullName;
-                if(this.testExModel != null)
+                if(this.testExVM != null)
                 {
-                    this.ucSettingControl1.RefreshData(this.testExModel);
+                    this.ucSettingControl1.RefreshData(this.testExVM);
                 }
             }
             else
             {
-                this.testExModel = this.ucSettingControl1.Target.GetModel();
+                this.testExVM = this.ucSettingControl1.Target;
                 this.ucSettingControl1.TargetVMName = typeof(ViewModels.TestVM).FullName;
-                if (this.testModel != null)
+                if (this.testVM != null)
                 {
-                    this.ucSettingControl1.RefreshData(this.testModel);
+                    this.ucSettingControl1.RefreshData(this.testVM);
                 }
             }
         }
