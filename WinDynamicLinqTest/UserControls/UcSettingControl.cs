@@ -35,6 +35,18 @@ namespace WinDynamicLinqTest.UserControls
             public PropertyInfo PropertyInfo { set; get; }
         }
 
+        private class ControlEvent
+        {
+            public string eventName { private set; get; }
+            public EventHandler eventHandler { private set; get; }
+
+            public ControlEvent(string eventName, EventHandler eventHandler)
+            {
+                this.eventName = eventName;
+                this.eventHandler= eventHandler;
+            }
+        }
+
         /// <summary>
         /// コントロール化したいクラスのフルネーム
         /// </summary>
@@ -44,6 +56,11 @@ namespace WinDynamicLinqTest.UserControls
         /// テーブルレイアウトリスト
         /// </summary>
         private Dictionary<string, TableLayoutPanel> tableLayoutPanels = null;
+
+        /// <summary>
+        /// コントロール単位のイベントリスト
+        /// </summary>
+        private Dictionary<Control, List<ControlEvent>> controlEvents = new Dictionary<Control, List<ControlEvent>>();
 
         /// <summary>
         /// コントロール化したいクラスのフルネーム
@@ -171,6 +188,18 @@ namespace WinDynamicLinqTest.UserControls
             //すでにレイアウトされている場合はコントロールを解放
             if (this.tableLayoutPanels != null)
             {
+                // イベントの破棄
+                foreach (var control in this.controlEvents.Keys)
+                {
+                    var controlType = control.GetType();
+                    foreach (var controlEvent in this.controlEvents[control])
+                    {
+                        var eventHandler = controlType.GetEvent(controlEvent.eventName);
+                        eventHandler.RemoveEventHandler(control, controlEvent.eventHandler);
+                    }
+                }
+                this.controlEvents.Clear();
+
                 this.tableLayoutPanels.Clear();
                 this.Controls.Clear();
                 this.tableLayoutPanels = null;
@@ -331,10 +360,25 @@ namespace WinDynamicLinqTest.UserControls
             var inputData = pi.GetValue(this.target, null);
             input.Text = inputData == null ? string.Empty : inputData.ToString();
 
-            input.TextChanged += (sender, e) =>
+            // EventListが存在しない場合は生成する
+            if (!this.controlEvents.Keys.Contains(input))
             {
-                pi.SetValue(this.target, input.Text, null);
-            };
+                this.controlEvents.Add(input, new List<ControlEvent>());
+            }
+
+            // Eventリストの取得
+            List<ControlEvent> eventList = null;
+            eventList = this.controlEvents[input];
+
+            // Event追加
+            eventList.Add(
+                new ControlEvent("TextChanged", (sender, e) =>
+                {
+                    pi.SetValue(this.target, input.Text, null);
+                }));
+
+            // Event設定
+            input.TextChanged += eventList.Last().eventHandler;
 
             return input.Height;
         }
@@ -351,10 +395,25 @@ namespace WinDynamicLinqTest.UserControls
             var inputData = pi.GetValue(this.target, null);
             input.Checked = inputData == null ? false : (bool)inputData;
 
-            input.CheckedChanged += (sender, e) =>
+            // EventListが存在しない場合は生成する
+            if (!this.controlEvents.Keys.Contains(input))
             {
-                pi.SetValue(this.target, input.Checked, null);
-            };
+                this.controlEvents.Add(input, new List<ControlEvent>());
+            }
+
+            // Eventリストの取得
+            List<ControlEvent> eventList = null;
+            eventList = this.controlEvents[input];
+
+            // Event追加
+            eventList.Add(
+                new ControlEvent("CheckedChanged", (sender, e) =>
+                {
+                    pi.SetValue(this.target, input.Checked, null);
+                }));
+
+            // Event設定
+            input.CheckedChanged += eventList.Last().eventHandler;
 
             return input.Height;
         }
@@ -378,13 +437,30 @@ namespace WinDynamicLinqTest.UserControls
                 input.DataSource = datasource.GetItem();
             }
 
-            var inputData = pi.GetValue(this.target, null);
-            input.SelectedValueChanged += (_sender, _e) =>
-            {
-                pi.SetValue(this.target, input.SelectedValue, null);
-            };
-            input.SelectedValue = inputData;
+            input.SelectedValue = pi.GetValue(this.target, null);
 
+
+            // EventListが存在しない場合は生成する
+            if (!this.controlEvents.Keys.Contains(input))
+            {
+                this.controlEvents.Add(input, new List<ControlEvent>());
+            }
+
+            // Eventリストの取得
+            List<ControlEvent> eventList = null;
+            eventList = this.controlEvents[input];
+
+            // Event追加
+            eventList.Add(
+                new ControlEvent("SelectedValueChanged", (sender, e) =>
+                {
+                    pi.SetValue(this.target, input.SelectedValue, null);
+                }));
+
+
+            // Event設定
+            input.SelectedValueChanged += eventList.Last().eventHandler;
+            
             return input.Height;
 
         }
