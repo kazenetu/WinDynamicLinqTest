@@ -10,9 +10,16 @@ namespace WinDynamicLinqTest.ViewModels
     {
         private Test model = new Test();
 
-        public void SetModel(Test model)
+        /// <summary>
+        /// Modelインスタンスの設定
+        /// </summary>
+        /// <param name="model">設定するModelインスタンス</param>
+        public void SetModel(Interfaces.IModel model)
         {
-            this.model = model;
+            if(model is Test)
+            {
+                this.model = model as Test;
+            }
         }
 
         /// <summary>

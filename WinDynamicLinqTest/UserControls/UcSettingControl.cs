@@ -73,7 +73,7 @@ namespace WinDynamicLinqTest.UserControls
                 this.targetVMName = value;
 
                 //独自処理実行
-                this.Initialize();
+                this.initialize();
             }
             get
             {
@@ -170,6 +170,11 @@ namespace WinDynamicLinqTest.UserControls
             return result;
         }
 
+        public void RefreshData(IModel model)
+        {
+            this.initialize(model);
+        }
+
         #endregion
 
         #region レイアウト設定
@@ -177,7 +182,7 @@ namespace WinDynamicLinqTest.UserControls
         /// <summary>
         /// レイアウト初期化　独自処理
         /// </summary>
-        public void Initialize()
+        private void initialize(IModel model = null)
         {
             //デザイナーなら何もせずに終了
             if (this.DesignMode)
@@ -214,6 +219,10 @@ namespace WinDynamicLinqTest.UserControls
             //クラス名を元にTypeとそのインスタンスを取得
             var targetType = Type.GetType(this.TargetVMName);
             this.target = Activator.CreateInstance(targetType) as IViewModel;
+            if(model != null)
+            {
+                this.target.SetModel(model);
+            }
 
             //ソートするため、一時的に属性を格納するリスト作成
             var createSourceData = new List<CreateSourceData>();

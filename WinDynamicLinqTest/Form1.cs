@@ -6,6 +6,9 @@ namespace WinDynamicLinqTest
 {
     public partial class Form1 : Form
     {
+        private Interfaces.IModel testModel = null;
+        private Interfaces.IModel testExModel = null;
+
         public Form1()
         {
             InitializeComponent();
@@ -47,12 +50,21 @@ namespace WinDynamicLinqTest
         {
             if (this.ucSettingControl1.Target is ViewModels.TestVM)
             {
+                this.testModel = this.ucSettingControl1.Target.GetModel();
                 this.ucSettingControl1.TargetVMName =  typeof(ViewModels.TestVMEx).FullName;
+                if(this.testExModel != null)
+                {
+                    this.ucSettingControl1.RefreshData(this.testExModel);
+                }
             }
             else
             {
+                this.testExModel = this.ucSettingControl1.Target.GetModel();
                 this.ucSettingControl1.TargetVMName = typeof(ViewModels.TestVM).FullName;
-
+                if (this.testModel != null)
+                {
+                    this.ucSettingControl1.RefreshData(this.testModel);
+                }
             }
         }
 
