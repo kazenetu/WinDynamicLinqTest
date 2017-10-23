@@ -454,13 +454,12 @@ namespace WinDynamicLinqTest.UserControls
 
             if (datasource != null)
             {
+
                 input.ValueMember = datasource.GetValueMember();
                 input.DisplayMember = datasource.GetDisplayMember();
+
                 input.DataSource = datasource.GetItem();
             }
-
-            input.SelectedValue = pi.GetValue(this.target, null);
-
 
             // EventListが存在しない場合は生成する
             if (!this.controlEvents.Keys.Contains(input))
@@ -482,7 +481,22 @@ namespace WinDynamicLinqTest.UserControls
 
             // Event設定
             input.SelectedValueChanged += eventList.Last().eventHandler;
-            
+
+            // Event追加
+            eventList.Add(
+                new ControlEvent("BindingContextChanged", (sender, e) =>
+                {
+                    var comboboxInstance = sender as ComboBox;
+                    if (comboboxInstance != null && comboboxInstance.Items.Count > 0)
+                    {
+                        var itemValue = pi.GetValue(this.target, null);
+                        comboboxInstance.SelectedValue = itemValue;
+                    }
+                }));
+
+            // Event設定
+            input.BindingContextChanged += eventList.Last().eventHandler;
+
             return input.Height;
 
         }
