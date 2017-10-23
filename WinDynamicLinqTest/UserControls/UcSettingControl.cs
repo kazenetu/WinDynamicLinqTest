@@ -177,7 +177,7 @@ namespace WinDynamicLinqTest.UserControls
         public void SetViewModel(IViewModel viewModel)
         {
             // ViewModel名を設定
-            this.targetVMName = viewModel.GetType().Name;
+            this.targetVMName = viewModel.GetType().FullName;
 
             // 初期化メソッド呼び出し
             this.initialize(viewModel);
