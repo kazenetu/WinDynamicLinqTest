@@ -170,8 +170,16 @@ namespace WinDynamicLinqTest.UserControls
             return result;
         }
 
-        public void RefreshData(IViewModel viewModel)
+        /// <summary>
+        /// ViewModelの設定
+        /// </summary>
+        /// <param name="viewModel">ViewModelインスタンス</param>
+        public void SetViewModel(IViewModel viewModel)
         {
+            // ViewModel名を設定
+            this.targetVMName = viewModel.GetType().Name;
+
+            // 初期化メソッド呼び出し
             this.initialize(viewModel);
         }
 

@@ -59,7 +59,7 @@ namespace WinDynamicLinqTest
                 // データが保持されている場合は設定
                 if(this.testExVM != null)
                 {
-                    this.ucSettingControl1.RefreshData(this.testExVM);
+                    this.ucSettingControl1.SetViewModel(this.testExVM);
                 }
             }
             else
@@ -73,7 +73,7 @@ namespace WinDynamicLinqTest
                 // データが保持されている場合は設定
                 if (this.testVM != null)
                 {
-                    this.ucSettingControl1.RefreshData(this.testVM);
+                    this.ucSettingControl1.SetViewModel(this.testVM);
                 }
             }
         }
