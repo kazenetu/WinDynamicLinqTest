@@ -54,12 +54,14 @@ namespace WinDynamicLinqTest
                 this.testVM = this.ucSettingControl1.Target;
 
                 // ViewModel切替
-                this.ucSettingControl1.TargetVMName =  typeof(ViewModels.TestVMEx).FullName;
-
-                // データが保持されている場合は設定
                 if(this.testExVM != null)
                 {
+                    // データが保持されている場合は設定
                     this.ucSettingControl1.SetViewModel(this.testExVM);
+                }
+                else
+                {
+                    this.ucSettingControl1.TargetVMName = typeof(ViewModels.TestVMEx).FullName;
                 }
             }
             else
@@ -68,12 +70,14 @@ namespace WinDynamicLinqTest
                 this.testExVM = this.ucSettingControl1.Target;
 
                 // ViewModel切替
-                this.ucSettingControl1.TargetVMName = typeof(ViewModels.TestVM).FullName;
-
-                // データが保持されている場合は設定
                 if (this.testVM != null)
                 {
+                    // データが保持されている場合は設定
                     this.ucSettingControl1.SetViewModel(this.testVM);
+                }
+                else
+                {
+                    this.ucSettingControl1.TargetVMName = typeof(ViewModels.TestVM).FullName;
                 }
             }
         }
