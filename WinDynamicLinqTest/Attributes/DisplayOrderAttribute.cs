@@ -11,7 +11,6 @@ namespace WinDynamicLinqTest.Attributes
         /// <summary>
         /// 表示順番
         /// </summary>
-
         public int Order { get; set; }
     }
 }
