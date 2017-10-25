@@ -22,6 +22,15 @@ namespace WinDynamicLinqTest.ViewModels
         }
 
         /// <summary>
+        /// プロパティ更新の通知
+        /// </summary>
+        /// <param name="propertyName">プロパティ名</param>
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            // TODO プロパティ更新後の処理
+        }
+
+        /// <summary>
         /// テキストボックスサンプル
         /// </summary>
         [InputControl(LabelText = "名前", InputControl = typeof(TextBox))]
