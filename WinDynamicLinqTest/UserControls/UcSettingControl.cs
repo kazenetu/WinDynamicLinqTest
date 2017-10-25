@@ -397,6 +397,9 @@ namespace WinDynamicLinqTest.UserControls
                 new ControlEvent("TextChanged", (sender, e) =>
                 {
                     pi.SetValue(this.target, input.Text, null);
+
+                    // プロパティ更新通知
+                    this.target.NotifyPropertyChanged(input.Name); ;
                 }));
 
             // Event設定
@@ -432,6 +435,9 @@ namespace WinDynamicLinqTest.UserControls
                 new ControlEvent("CheckedChanged", (sender, e) =>
                 {
                     pi.SetValue(this.target, input.Checked, null);
+
+                    // プロパティ更新通知
+                    this.target.NotifyPropertyChanged(input.Name); ;
                 }));
 
             // Event設定
@@ -476,6 +482,9 @@ namespace WinDynamicLinqTest.UserControls
                 new ControlEvent("SelectedValueChanged", (sender, e) =>
                 {
                     pi.SetValue(this.target, input.SelectedValue, null);
+
+                    // プロパティ更新通知
+                    this.target.NotifyPropertyChanged(input.Name); ;
                 }));
 
 
