@@ -380,7 +380,7 @@ namespace WinDynamicLinqTest.UserControls
         private int setDataBind(TextBox input, PropertyInfo pi, Type dataSourceClass)
         {
             var inputData = pi.GetValue(this.target, null);
-            input.Text = inputData == null ? string.Empty : inputData.ToString();
+            this.setControlValue(input, inputData);
 
             // EventListが存在しない場合は生成する
             if (!this.controlEvents.Keys.Contains(input))
@@ -409,6 +409,16 @@ namespace WinDynamicLinqTest.UserControls
         }
 
         /// <summary>
+        /// コントロールに値を設定：テキストボックス
+        /// </summary>
+        /// <param name="input">対象コントロール</param>
+        /// <param name="value">設定値</param>
+        private void setControlValue(TextBox input,object value)
+        {
+            input.Text = value == null ? string.Empty : value.ToString();
+        }
+
+        /// <summary>
         /// データバインド処理：チェックボックス
         /// </summary>
         /// <param name="input"></param>
@@ -418,7 +428,7 @@ namespace WinDynamicLinqTest.UserControls
         private int setDataBind(CheckBox input, PropertyInfo pi, Type dataSourceClass)
         {
             var inputData = pi.GetValue(this.target, null);
-            input.Checked = inputData == null ? false : (bool)inputData;
+            this.setControlValue(input, inputData);
 
             // EventListが存在しない場合は生成する
             if (!this.controlEvents.Keys.Contains(input))
@@ -444,6 +454,16 @@ namespace WinDynamicLinqTest.UserControls
             input.CheckedChanged += eventList.Last().eventHandler;
 
             return input.Height;
+        }
+
+        /// <summary>
+        /// コントロールに値を設定：テキストボックス
+        /// </summary>
+        /// <param name="input">対象コントロール</param>
+        /// <param name="value">設定値</param>
+        private void setControlValue(CheckBox input, object value)
+        {
+            input.Checked = value == null ? false : (bool)value;
         }
 
         /// <summary>
@@ -498,8 +518,8 @@ namespace WinDynamicLinqTest.UserControls
                     var comboboxInstance = sender as ComboBox;
                     if (comboboxInstance != null && comboboxInstance.Items.Count > 0)
                     {
-                        var itemValue = pi.GetValue(this.target, null);
-                        comboboxInstance.SelectedValue = itemValue;
+                        var inputData = pi.GetValue(this.target, null);
+                        this.setControlValue(input, inputData);
                     }
                 }));
 
@@ -507,7 +527,16 @@ namespace WinDynamicLinqTest.UserControls
             input.BindingContextChanged += eventList.Last().eventHandler;
 
             return input.Height;
+        }
 
+        /// <summary>
+        /// コントロールに値を設定：コンボボックス
+        /// </summary>
+        /// <param name="input">対象コントロール</param>
+        /// <param name="value">設定値</param>
+        private void setControlValue(ComboBox input, object value)
+        {
+            input.SelectedValue = value;
         }
 
         #endregion
