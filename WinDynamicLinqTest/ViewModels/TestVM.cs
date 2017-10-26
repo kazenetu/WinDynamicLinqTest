@@ -26,7 +26,12 @@ namespace WinDynamicLinqTest.ViewModels
         /// <returns>コントロールに値を設定するか否か</returns>
         public bool NotifyPropertyChanged(string propertyName)
         {
-            // TODO プロパティ更新後の処理
+            // Sample:Nameの入力をValueにコピーする
+            if (propertyName == "Name")
+            {
+                this.Value = this.Name;
+                return true;
+            }
 
             return false;
         }

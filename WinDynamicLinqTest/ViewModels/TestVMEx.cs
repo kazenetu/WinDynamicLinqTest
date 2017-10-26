@@ -28,7 +28,12 @@ namespace WinDynamicLinqTest.ViewModels
         /// <returns>コントロールに値を設定するか否か</returns>
         public bool NotifyPropertyChanged(string propertyName)
         {
-            // TODO プロパティ更新後の処理
+            // Sample:チェックボックスがONならコンボボックスを未選択にする
+            if (propertyName == "Value" && this.Value)
+            {
+                this.SelectItem = 0;
+                return true;
+            }
 
             return false;
         }
