@@ -394,7 +394,7 @@ namespace WinDynamicLinqTest.UserControls
 
             // Event追加
             eventList.Add(
-                new ControlEvent("TextChanged", (sender, e) =>
+                new ControlEvent("LostFocus", (sender, e) =>
                 {
                     pi.SetValue(this.target, input.Text, null);
 
@@ -406,7 +406,7 @@ namespace WinDynamicLinqTest.UserControls
                 }));
 
             // Event設定
-            input.TextChanged += eventList.Last().eventHandler;
+            input.LostFocus += eventList.Last().eventHandler;
 
             return input.Height;
         }
