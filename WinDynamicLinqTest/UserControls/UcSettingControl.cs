@@ -342,7 +342,7 @@ namespace WinDynamicLinqTest.UserControls
 
             //データバインドの設定
             var inputHeight =
-                this.SetDataBind(input, pi, dataSourceClass);
+                this.setDataBind(input, pi, dataSourceClass);
 
             //テーブルレイアウトにラベルと入力コントロールを登録
             table.SetCellPosition(label, new TableLayoutPanelCellPosition(0, 0));
@@ -377,7 +377,7 @@ namespace WinDynamicLinqTest.UserControls
         /// <param name="pi"></param>
         /// <param name="dataSourceClass">コンボボックスやリストボックスのための選択項目出力クラス</param>
         /// <returns>入力コントロールの高さ情報</returns>
-        private int SetDataBind(TextBox input, PropertyInfo pi, Type dataSourceClass)
+        private int setDataBind(TextBox input, PropertyInfo pi, Type dataSourceClass)
         {
             var inputData = pi.GetValue(this.target, null);
             input.Text = inputData == null ? string.Empty : inputData.ToString();
@@ -415,7 +415,7 @@ namespace WinDynamicLinqTest.UserControls
         /// <param name="pi"></param>
         /// <param name="dataSourceClass">コンボボックスやリストボックスのための選択項目出力クラス</param>
         /// <returns>入力コントロールの高さ情報</returns>
-        private int SetDataBind(CheckBox input, PropertyInfo pi, Type dataSourceClass)
+        private int setDataBind(CheckBox input, PropertyInfo pi, Type dataSourceClass)
         {
             var inputData = pi.GetValue(this.target, null);
             input.Checked = inputData == null ? false : (bool)inputData;
@@ -453,7 +453,7 @@ namespace WinDynamicLinqTest.UserControls
         /// <param name="pi"></param>
         /// <param name="dataSourceClass">コンボボックスやリストボックスのための選択項目出力クラス</param>
         /// <returns>入力コントロールの高さ情報</returns>
-        private int SetDataBind(ComboBox input, PropertyInfo pi, Type dataSourceClass)
+        private int setDataBind(ComboBox input, PropertyInfo pi, Type dataSourceClass)
         {
             var datasource =
                 (ISettingControlDataSource)Activator.CreateInstance(dataSourceClass);
