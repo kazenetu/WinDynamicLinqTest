@@ -15,6 +15,7 @@
         /// プロパティ更新の通知
         /// </summary>
         /// <param name="propertyName">プロパティ名</param>
-        void NotifyPropertyChanged(string propertyName);
+        /// <returns>コントロールに値を設定するか否か</returns>
+        bool NotifyPropertyChanged(string propertyName);
     }
 }

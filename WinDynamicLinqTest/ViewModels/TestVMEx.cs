@@ -25,9 +25,12 @@ namespace WinDynamicLinqTest.ViewModels
         /// プロパティ更新の通知
         /// </summary>
         /// <param name="propertyName">プロパティ名</param>
-        public void NotifyPropertyChanged(string propertyName)
+        /// <returns>コントロールに値を設定するか否か</returns>
+        public bool NotifyPropertyChanged(string propertyName)
         {
             // TODO プロパティ更新後の処理
+
+            return false;
         }
 
         /// <summary>
