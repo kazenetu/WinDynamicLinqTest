@@ -399,7 +399,10 @@ namespace WinDynamicLinqTest.UserControls
                     pi.SetValue(this.target, input.Text, null);
 
                     // プロパティ更新通知
-                    this.target.NotifyPropertyChanged(input.Name); ;
+                    if (this.target.NotifyPropertyChanged(input.Name))
+                    {
+                        this.setControlValues();
+                    }
                 }));
 
             // Event設定
@@ -447,7 +450,10 @@ namespace WinDynamicLinqTest.UserControls
                     pi.SetValue(this.target, input.Checked, null);
 
                     // プロパティ更新通知
-                    this.target.NotifyPropertyChanged(input.Name); ;
+                    if (this.target.NotifyPropertyChanged(input.Name))
+                    {
+                        this.setControlValues();
+                    }
                 }));
 
             // Event設定
@@ -504,7 +510,10 @@ namespace WinDynamicLinqTest.UserControls
                     pi.SetValue(this.target, input.SelectedValue, null);
 
                     // プロパティ更新通知
-                    this.target.NotifyPropertyChanged(input.Name); ;
+                    if (this.target.NotifyPropertyChanged(input.Name))
+                    {
+                        this.setControlValues();
+                    }
                 }));
 
 
@@ -540,6 +549,32 @@ namespace WinDynamicLinqTest.UserControls
         }
 
         #endregion
+
+        #region コントロール設定
+
+        /// <summary>
+        /// コントロールにViewModelの値を設定
+        /// </summary>
+        private void setControlValues()
+        {
+            var targetType = this.target.GetType();
+
+            foreach(var control in this.controlEvents.Keys)
+            {
+                var pi = targetType.GetProperty(control.Name);
+                if(pi != null)
+                {
+                    // 値の設定
+                    var value = pi.GetValue(this.target);
+                    this.setControlValue((dynamic)control, value);
+                }
+            }
+
+        }
+
+        #endregion
+
+
     }
 }
 
