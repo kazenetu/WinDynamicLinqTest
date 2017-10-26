@@ -321,7 +321,7 @@ namespace WinDynamicLinqTest.UserControls
         /// <param name="dataSourceClass">コンボボックスやリストボックスのための選択項目出力クラス</param>
         private void AddTable(PropertyInfo pi, string labelText, Type inputType, Type dataSourceClass)
         {
-            //テーブルレイアウtを作成、設定する
+            //テーブルレイアウトを作成、設定する
             var table = new TableLayoutPanel();
             table.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100));
