@@ -63,6 +63,11 @@ namespace WinDynamicLinqTest.UserControls
         private Dictionary<Control, List<ControlEvent>> controlEvents = new Dictionary<Control, List<ControlEvent>>();
 
         /// <summary>
+        /// コントロールの有効制御リスト
+        /// </summary>
+        private Dictionary<Control,string> enableControls  = new Dictionary<Control, string>();
+
+        /// <summary>
         /// コントロール化したいクラスのフルネーム
         /// </summary>
         [Browsable(true), DefaultValue("")]
@@ -212,6 +217,7 @@ namespace WinDynamicLinqTest.UserControls
                     }
                 }
                 this.controlEvents.Clear();
+                this.enableControls.Clear();
 
                 this.tableLayoutPanels.Clear();
                 this.Controls.Clear();
@@ -240,30 +246,46 @@ namespace WinDynamicLinqTest.UserControls
             //ソートするため、一時的に属性を格納するリスト作成
             var createSourceData = new List<CreateSourceData>();
 
+            //コントロールの有効制御用仮リスト作成
+            var enableList = new Dictionary<string, string>();
+
             //プロパティ一覧を取得し、属性を取得する
-            var properties = targetType.GetProperties();
+            var properties = targetType.GetProperties(BindingFlags.Instance | BindingFlags.Public);
             foreach (var property in properties)
             {
-                if (property.PropertyType.IsPublic)
-                {
-                    DisplayOrderAttribute displayOrder = null;
-                    InputControlAttribute inputControl = null;
+                DisplayOrderAttribute displayOrder = null;
+                InputControlAttribute inputControl = null;
 
-                    //属性を取得
-                    foreach (var propertyAttribute in property.GetCustomAttributes(true))
+                var isCreateControl = true;
+
+                //属性を取得
+                foreach (var propertyAttribute in property.GetCustomAttributes(true))
+                {
+                    if (propertyAttribute.GetType().Equals(typeof(InputControlAttribute)))
                     {
-                        if (propertyAttribute.GetType().Equals(typeof(InputControlAttribute)))
-                        {
-                            inputControl =
-                                propertyAttribute as InputControlAttribute;
-                        }
-                        if (propertyAttribute.GetType().Equals(typeof(DisplayOrderAttribute)))
-                        {
-                            displayOrder =
-                                propertyAttribute as DisplayOrderAttribute;
-                        }
+                        inputControl =
+                            propertyAttribute as InputControlAttribute;
                     }
 
+                    if (propertyAttribute.GetType().Equals(typeof(DisplayOrderAttribute)))
+                    {
+                        displayOrder =
+                            propertyAttribute as DisplayOrderAttribute;
+                    }
+
+                    if (propertyAttribute.GetType().Equals(typeof(EnableAttribute)))
+                    {
+                        //有効制御仮リストに追加
+                        enableList.Add((propertyAttribute as EnableAttribute).targetPropertyName, property.Name);
+
+                        //コントロール作成対象外
+                        isCreateControl = false;
+                    }
+                }
+
+                //コントロールを作成する
+                if (isCreateControl)
+                {
                     //属性が設定されていない場合の設定を行う
                     if (displayOrder == null)
                     {
@@ -310,6 +332,23 @@ namespace WinDynamicLinqTest.UserControls
 
             //ユーザーコントロール（フローレイアウトパネル）に登録
             this.Controls.AddRange(this.tableLayoutPanels.Select(item => item.Value).ToArray());
+
+            // コントロールの表示制御リストを作成する
+            foreach (var targetName in enableList.Keys)
+            {
+                var targetControls = controlEvents.Keys.Where(control => control.Name == targetName);
+
+                if (targetControls.Any())
+                {
+                    this.enableControls.Add(targetControls.First(), enableList[targetName]);
+                }
+            }
+
+            // プロパティ更新メソッドを呼び出す
+            if (this.target.NotifyPropertyChanged(string.Empty))
+            {
+                this.setControlValues();
+            }
         }
 
         /// <summary>
@@ -559,6 +598,7 @@ namespace WinDynamicLinqTest.UserControls
         {
             var targetType = this.target.GetType();
 
+            // 値の設定
             foreach(var control in this.controlEvents.Keys)
             {
                 var pi = targetType.GetProperty(control.Name);
@@ -570,6 +610,16 @@ namespace WinDynamicLinqTest.UserControls
                 }
             }
 
+            // 有効制御
+            foreach (var control in this.enableControls.Keys)
+            {
+                var pi = targetType.GetProperty(enableControls[control]);
+                if (pi != null)
+                {
+                    // 有効制御の設定
+                    control.Enabled = (bool)pi.GetValue(this.target);
+                }
+            }
         }
 
         #endregion
