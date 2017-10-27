@@ -85,5 +85,11 @@ namespace WinDynamicLinqTest.ViewModels
                 return model.SelectItem;
             }
         }
+
+        /// <summary>
+        /// コンボボックスサンプル用コントロールの有効制御
+        /// </summary>
+        [Enable(targetPropertyName = "SelectItem")]
+        public bool EnabledSelectItem { private set; get; }
     }
 }
