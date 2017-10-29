@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
@@ -6,12 +7,41 @@ namespace WinDynamicLinqTest
 {
     public partial class Form1 : Form
     {
-        private Interfaces.IViewModel testVM = null;
-        private Interfaces.IViewModel testExVM= null;
+        /// <summary>
+        /// ViewModelのリスト
+        /// </summary>
+        private List<Interfaces.IViewModel> viewModels = null;
+
+        /// <summary>
+        /// 現在選択中のViewModelのIndex
+        /// </summary>
+        private int viewModelIndex = 0;
 
         public Form1()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// フォームロードイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (DesignMode)
+            {
+                return;
+            }
+
+            // ViewModelを生成
+            this.viewModels = new List<Interfaces.IViewModel>();
+            this.viewModels.Add(new ViewModels.TestVM());
+            this.viewModels.Add(new ViewModels.TestVMEx());
+
+            // ViewModelを設定
+            this.ucSettingControl1.SetViewModel(this.viewModels[this.viewModelIndex]);
+
         }
 
         /// <summary>
@@ -48,38 +78,14 @@ namespace WinDynamicLinqTest
         /// <param name="e"></param>
         private void ChangeVM_Click(object sender, EventArgs e)
         {
-            if (this.ucSettingControl1.Target is ViewModels.TestVM)
+            // Indexをインクリメント
+            if(++this.viewModelIndex >= this.viewModels.Count)
             {
-                // 切替前のデータを保持
-                this.testVM = this.ucSettingControl1.Target;
-
-                // ViewModel切替
-                if(this.testExVM != null)
-                {
-                    // データが保持されている場合は設定
-                    this.ucSettingControl1.SetViewModel(this.testExVM);
-                }
-                else
-                {
-                    this.ucSettingControl1.TargetVMName = typeof(ViewModels.TestVMEx).FullName;
-                }
+                this.viewModelIndex -= this.viewModels.Count;
             }
-            else
-            {
-                // 切替前のデータを保持
-                this.testExVM = this.ucSettingControl1.Target;
 
-                // ViewModel切替
-                if (this.testVM != null)
-                {
-                    // データが保持されている場合は設定
-                    this.ucSettingControl1.SetViewModel(this.testVM);
-                }
-                else
-                {
-                    this.ucSettingControl1.TargetVMName = typeof(ViewModels.TestVM).FullName;
-                }
-            }
+            // ViewModelを設定
+            this.ucSettingControl1.SetViewModel(this.viewModels[this.viewModelIndex]);
         }
 
         /// <summary>
@@ -102,5 +108,6 @@ namespace WinDynamicLinqTest
                     break;
             }
         }
+
     }
 }
